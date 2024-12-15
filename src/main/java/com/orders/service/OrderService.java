@@ -9,6 +9,7 @@ import com.orders.domain.request.OrderItemRequest;
 import com.orders.domain.request.OrderRequest;
 import com.orders.exception.DuplicateOrdersException;
 import com.orders.mapper.JsonConverter;
+import com.orders.mapper.OrderMapper;
 import com.orders.messages.OrderProducer;
 import com.orders.repository.OrderRepository;
 import jakarta.transaction.Transactional;
@@ -29,6 +30,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     private final JsonConverter converter;
+
+    private final OrderMapper mapper;
 
     @Transactional
     public Order processOrder(OrderRequest orderRequest) throws JsonProcessingException {
@@ -55,13 +58,7 @@ public class OrderService {
 
     private Order initializeOrder(OrderRequest orderRequest) {
         orderRequest.setStatus(OrderEnum.PENDING.name());
-
-        Order order = new Order();
-        order.setExternalId(orderRequest.getExternalId());
-        order.setStatus(orderRequest.getStatus());
-        order.setCreatedAt(LocalDateTime.now());
-        order.setTotalValue(orderRequest.getTotalValue());
-
+        Order order = mapper.toEntity(orderRequest);
         return orderRepository.save(order);
     }
 
