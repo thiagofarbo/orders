@@ -32,7 +32,6 @@ Processamento realizado pelo OrderService:
 Calcula o valor total dos itens.
 Salva o pedido no banco de dados Orders.
 Publica o pedido processado no tópico orders-calculated Topic.
-Exemplo do pedido calculado publicado:
 
 ```
 {
