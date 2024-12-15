@@ -1,18 +1,38 @@
 package com.orders.domain.request;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.time.LocalDateTime;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
 
-@Table
-@Entity
-public class OrderRequest {
+@Getter
+@Setter
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
+public class OrderRequest implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public OrderRequest(){
+    }
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private String externalId;
     private Double totalValue;
     private String status;
-    private LocalDateTime createdAt;
+    private List<OrderItemRequest> items;
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
+
 }

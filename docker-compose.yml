@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+#  orders-api:
+#    container_name: orders-api
+#    image: thiago1432/orders-api:v1
+#    networks:
+#      - orders-net
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - orders-kafka
+#      - db
+#    links:
+#      - orders-kafka
+#      - db
+
+  db:
+    image: postgres:13.18-alpine
+    restart: always
+    container_name: db-orders
+    volumes:
+      - data:/var/lib/postgresql/db
+    networks:
+      - orders-net
+    environment:
+      POSTGRES_DB: orders
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - '5432:5432'
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper-orders
+    networks:
+      - orders-net
+    ports:
+      - "2181:2181"
+
+  orders-kafka:
+    image: wurstmeister/kafka
+    container_name: orders-kafka
+    networks:
+      - orders-net
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+volumes:
+  data:
+    external: false
+networks:
+  orders-net:
+    driver: bridge
