@@ -96,12 +96,12 @@ Caso seja necessário publicar API de forma local, iremos utilizar Docker para i
 
 Para executar o compose-dev deve utilizar o seguinte comando:
 ```docker
-docker-compose -f docker-compose.dev.yml up -d
+docker-compose -f docker-compose.yml up -d
 ```
 
 Para atualizar com as novas mudanças da repositório, execute o comando para derrubar seu compose
 ```docker
-docker-compose -f docker-compose.dev.yml down
+docker-compose -f docker-compose.yml down
 ```
 
 # Swagger
