@@ -87,7 +87,7 @@ docker-compose up -d
 ```
 
 Para encerrar a execução dos serviços, execute:
-```docker
+```
 docker-compose down
 ```
 
@@ -95,12 +95,12 @@ docker-compose down
 Caso seja necessário publicar API de forma local, iremos utilizar Docker para isso. Mas antes, é necessário executar as etapas abaixo:
 
 Para executar o compose-dev deve utilizar o seguinte comando:
-```docker
+```
 docker-compose -f docker-compose.yml up -d
 ```
 
 Para atualizar com as novas mudanças da repositório, execute o comando para derrubar seu compose
-```docker
+```
 docker-compose -f docker-compose.yml down
 ```
 
